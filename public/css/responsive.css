@@ -1,0 +1,174 @@
+/* Responsive Styles */
+@media screen and (max-width: 992px) {
+	.recipe-grid {
+		grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+		gap: 20px;
+	}
+
+	.section-header {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.search-filter {
+		margin-top: 15px;
+		width: 100%;
+	}
+
+	.search-filter input {
+		width: 100%;
+	}
+
+	.modal-content {
+		margin: 40px 20px;
+	}
+}
+
+/* Mobile devices */
+@media screen and (max-width: 768px) {
+	header .container {
+		padding: 15px;
+	}
+
+	.logo h1 {
+		font-size: 20px;
+	}
+
+	nav {
+		position: fixed;
+		top: 0;
+		left: -100%;
+		width: 70%;
+		height: 100vh;
+		background-color: white;
+		box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+		transition: var(--transition);
+		z-index: 200;
+	}
+
+	nav.active {
+		left: 0;
+	}
+
+	nav ul {
+		flex-direction: column;
+		padding: 80px 20px 20px;
+	}
+
+	nav ul li {
+		margin: 0 0 15px 0;
+	}
+
+	nav ul li a {
+		display: block;
+		padding: 10px;
+	}
+
+	.menu-toggle {
+		display: flex;
+		z-index: 300;
+	}
+
+	.menu-toggle.active span:nth-child(1) {
+		transform: rotate(45deg) translate(5px, 5px);
+	}
+
+	.menu-toggle.active span:nth-child(2) {
+		opacity: 0;
+	}
+
+	.menu-toggle.active span:nth-child(3) {
+		transform: rotate(-45deg) translate(5px, -5px);
+	}
+
+	.overlay {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0, 0, 0, 0.5);
+		z-index: 150;
+	}
+
+	.overlay.active {
+		display: block;
+	}
+
+	.hero {
+		padding: 40px 0;
+	}
+
+	.hero h2 {
+		font-size: 28px;
+	}
+
+	.hero p {
+		font-size: 16px;
+	}
+
+	.recipe-grid {
+		grid-template-columns: 1fr;
+		gap: 20px;
+	}
+
+	.recipe-detail-meta {
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.auth-form {
+		padding: 20px;
+	}
+
+	.modal-content {
+		padding: 20px;
+		margin: 20px;
+	}
+
+	.add-recipe-btn {
+		width: 50px;
+		height: 50px;
+		font-size: 20px;
+		bottom: 20px;
+		right: 20px;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.container {
+		padding: 0 15px;
+	}
+
+	.hero h2 {
+		font-size: 24px;
+	}
+
+	.section-header h2 {
+		font-size: 24px;
+	}
+
+	.search-filter {
+		flex-direction: column;
+	}
+
+	.search-filter input,
+	.search-filter select {
+		width: 100%;
+	}
+
+	.recipe-actions {
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.recipe-actions button {
+		width: 100%;
+	}
+
+	.pagination button {
+		padding: 6px 10px;
+		margin: 0 3px;
+	}
+}

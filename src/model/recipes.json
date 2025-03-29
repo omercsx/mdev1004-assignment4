@@ -1,0 +1,89 @@
+{
+	"recipes": [
+		{
+			"recipeName": "Spaghetti Carbonara",
+			"ingredients": [
+				"spaghetti",
+				"eggs",
+				"pecorino romano cheese",
+				"guanciale",
+				"black pepper",
+				"salt"
+			],
+			"cookingTime": 25,
+			"difficulty": "Medium",
+			"cuisine": "Italian",
+			"description": "A classic Roman pasta dish made with eggs, hard cheese, cured pork, and black pepper. The sauce is created by combining raw eggs with cheese that are cooked by the heat of the freshly cooked pasta.",
+			"averageRating": 4.8
+		},
+		{
+			"recipeName": "Thai Green Curry",
+			"ingredients": [
+				"coconut milk",
+				"green curry paste",
+				"chicken breast",
+				"bamboo shoots",
+				"thai basil",
+				"fish sauce",
+				"palm sugar",
+				"eggplant",
+				"kaffir lime leaves"
+			],
+			"cookingTime": 40,
+			"difficulty": "Medium",
+			"cuisine": "Thai",
+			"description": "A fragrant and creamy curry made with coconut milk and green curry paste, featuring tender chicken and fresh vegetables.",
+			"averageRating": 4.6
+		},
+		{
+			"recipeName": "Simple Avocado Toast",
+			"ingredients": [
+				"sourdough bread",
+				"ripe avocado",
+				"salt",
+				"pepper",
+				"red pepper flakes",
+				"olive oil",
+				"lemon juice"
+			],
+			"cookingTime": 10,
+			"difficulty": "Easy",
+			"cuisine": "Modern American",
+			"description": "A quick and nutritious breakfast featuring mashed avocado on toasted sourdough bread with simple seasonings.",
+			"averageRating": 4.3
+		},
+		{
+			"recipeName": "Beef Wellington",
+			"ingredients": [
+				"beef tenderloin",
+				"mushrooms",
+				"prosciutto",
+				"puff pastry",
+				"egg wash",
+				"dijon mustard",
+				"thyme",
+				"shallots"
+			],
+			"cookingTime": 120,
+			"difficulty": "Hard",
+			"cuisine": "British",
+			"description": "A luxurious dish of beef tenderloin wrapped in mushroom duxelles, prosciutto, and puff pastry, then baked to perfection.",
+			"averageRating": 4.9
+		},
+		{
+			"recipeName": "Miso Soup",
+			"ingredients": [
+				"dashi stock",
+				"miso paste",
+				"tofu",
+				"wakame seaweed",
+				"green onions"
+			],
+			"cookingTime": 15,
+			"difficulty": "Easy",
+			"cuisine": "Japanese",
+			"description": "A traditional Japanese soup made with fermented soybean paste, dashi stock, and various additions like tofu and seaweed.",
+			"averageRating": 4.4
+		}
+	]
+}
