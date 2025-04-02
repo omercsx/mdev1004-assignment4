@@ -21,8 +21,7 @@ const loginForm = document.getElementById('login-form');
 const registerForm = document.getElementById('register-form');
 const recipeForm = document.getElementById('recipe-form');
 const searchRecipes = document.getElementById('search-recipes');
-const filterDifficulty = document.getElementById('filter-difficulty');
-const filterCuisine = document.getElementById('filter-cuisine');
+const logoutButton = document.getElementById('logout-button');
 
 // API Base URL
 const API_URL = 'http://localhost:3000/api';
@@ -33,6 +32,8 @@ let recipes = [];
 let filteredRecipes = [];
 let currentPage = 1;
 let itemsPerPage = 6;
+let isEditing = false;
+let editingRecipeId = null;
 
 // Navigation
 function showSection(section) {
@@ -344,32 +345,31 @@ async function register(name, email, password) {
 function createRecipeCard(recipe) {
   const card = document.createElement('div');
   card.className = 'recipe-card';
-
-  const difficultyClass = recipe.difficulty.toLowerCase();
-
+  
   card.innerHTML = `
-        <div class="recipe-image">Recipe Image</div>
-        <div class="recipe-content">
-            <h3 class="recipe-title">${recipe.recipeName}</h3>
-            <span class="recipe-difficulty ${difficultyClass}">${recipe.difficulty}</span>
-            <div class="recipe-info">
-                <span>${recipe.cuisine}</span>
-                <span>${recipe.cookingTime} mins</span>
-            </div>
-            <div class="recipe-actions">
-                <button class="btn secondary view-recipe" data-id="${recipe._id}">View</button>
-                <button class="btn primary edit-recipe" data-id="${recipe._id}">Edit</button>
-            </div>
-        </div>
-    `;
+    <div class="recipe-card-content">
+      <h3>${recipe.name}</h3>
+      <div class="recipe-info">
+        <p><strong>Studio:</strong> ${recipe.category}</p>
+        <p><strong>Rating:</strong> ${recipe.difficulty}</p>
+      </div>
+      <div class="recipe-actions">
+        <button class="btn secondary edit-recipe" data-id="${recipe._id}">Edit</button>
+        <button class="btn primary delete-recipe" data-id="${recipe._id}">Delete</button>
+      </div>
+    </div>
+  `;
 
   // Add event listeners
-  card.querySelector('.view-recipe').addEventListener('click', () => {
-    viewRecipe(recipe._id);
-  });
+  const editButton = card.querySelector('.edit-recipe');
+  const deleteButton = card.querySelector('.delete-recipe');
 
-  card.querySelector('.edit-recipe').addEventListener('click', () => {
-    editRecipe(recipe._id);
+  editButton.addEventListener('click', () => editRecipe(recipe._id));
+  deleteButton.addEventListener('click', async () => {
+    if (confirm('Are you sure you want to delete this recipe?')) {
+      await deleteRecipe(recipe._id);
+      loadAllRecipes();
+    }
   });
 
   return card;
@@ -402,7 +402,7 @@ async function loadAllRecipes() {
   console.log('All recipes loaded:', recipes.length);
 
   // Populate cuisine filter
-  const cuisines = [...new Set(recipes.map(recipe => recipe.cuisine))];
+  const cuisines = [...new Set(recipes.map(recipe => recipe.category))];
   console.log('Available cuisines:', cuisines);
 
   filterCuisine.innerHTML = '<option value="">All Cuisines</option>';
@@ -494,12 +494,10 @@ async function viewRecipe(id) {
     recipeDetailContent.innerHTML = `
             <div class="recipe-detail">
                 <div class="recipe-detail-header">
-                    <h2 class="recipe-detail-title">${recipe.recipeName}</h2>
+                    <h2 class="recipe-detail-title">${recipe.name}</h2>
                     <div class="recipe-detail-meta">
-                        <span><strong>Cuisine:</strong> ${recipe.cuisine}</span>
-                        <span><strong>Cooking Time:</strong> ${recipe.cookingTime} minutes</span>
-                        <span><strong>Difficulty:</strong> ${recipe.difficulty}</span>
-                        <span><strong>Rating:</strong> ${recipe.averageRating || 'Not rated'}</span>
+                        <span><strong>Studio:</strong> ${recipe.category}</span>
+                        <span><strong>Rating:</strong> ${recipe.difficulty}</span>
                     </div>
                 </div>
                 
@@ -544,38 +542,38 @@ async function viewRecipe(id) {
   }
 }
 
-function editRecipe(id) {
-  const recipe = recipes.find(r => r._id === id);
-  if (recipe) {
-    document.getElementById('recipe-form-title').textContent = 'Edit Recipe';
-    document.getElementById('recipe-name').value = recipe.recipeName;
-    document.getElementById('recipe-ingredients').value = recipe.ingredients.join('\n');
-    document.getElementById('recipe-cooking-time').value = recipe.cookingTime;
-    document.getElementById('recipe-difficulty').value = recipe.difficulty;
-    document.getElementById('recipe-cuisine').value = recipe.cuisine;
-    document.getElementById('recipe-description').value = recipe.description;
-    document.getElementById('recipe-id').value = recipe._id;
-
-    openModal(recipeFormModal);
-  }
-}
-
-function addNewRecipe() {
-  document.getElementById('recipe-form-title').textContent = 'Add New Recipe';
-  document.getElementById('recipe-form').reset();
-  document.getElementById('recipe-id').value = '';
-
+async function editRecipe(id) {
+  isEditing = true;
+  editingRecipeId = id;
+  const recipe = await fetchRecipeById(id);
+  
+  // Update form modal title
+  document.querySelector('#recipe-form-modal h2').textContent = 'Edit Recipe';
+  
+  // Fill form with recipe data
+  document.querySelector('#recipe-name').value = recipe.name;
+  document.querySelector('#recipe-description').value = recipe.description;
+  document.querySelector('#recipe-ingredients').value = recipe.ingredients.join('\n');
+  document.querySelector('#recipe-instructions').value = recipe.instructions;
+  document.querySelector('#recipe-cooking-time').value = recipe.cookingTime;
+  document.querySelector('#recipe-servings').value = recipe.servings;
+  document.querySelector('#recipe-difficulty').value = recipe.difficulty;
+  document.querySelector('#recipe-category').value = recipe.category;
+  
   openModal(recipeFormModal);
 }
 
-// Create "Add Recipe" button
-function createAddRecipeButton() {
-  const addButton = document.createElement('div');
-  addButton.className = 'add-recipe-btn';
-  addButton.innerHTML = '+';
-  addButton.title = 'Add New Recipe';
-  addButton.addEventListener('click', addNewRecipe);
-  document.body.appendChild(addButton);
+function addNewRecipe() {
+  isEditing = false;
+  editingRecipeId = null;
+  
+  // Update form modal title
+  document.querySelector('#recipe-form-modal h2').textContent = 'Add New Recipe';
+  
+  // Clear form
+  recipeForm.reset();
+  
+  openModal(recipeFormModal);
 }
 
 // Form Submissions
@@ -630,21 +628,25 @@ registerForm.addEventListener('submit', async (e) => {
 recipeForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const recipeId = document.getElementById('recipe-id').value;
+  const recipeId = editingRecipeId;
   const recipeName = document.getElementById('recipe-name').value;
   const ingredients = document.getElementById('recipe-ingredients').value.split('\n').filter(i => i.trim() !== '');
   const cookingTime = parseInt(document.getElementById('recipe-cooking-time').value);
+  const servings = parseInt(document.getElementById('recipe-servings').value);
   const difficulty = document.getElementById('recipe-difficulty').value;
-  const cuisine = document.getElementById('recipe-cuisine').value;
+  const category = document.getElementById('recipe-category').value;
   const description = document.getElementById('recipe-description').value;
+  const instructions = document.getElementById('recipe-instructions').value;
 
   const recipeData = {
-    recipeName,
+    name: recipeName,
     ingredients,
     cookingTime,
+    servings,
     difficulty,
-    cuisine,
-    description
+    category,
+    description,
+    instructions
   };
 
   let result;
@@ -678,14 +680,14 @@ function filterRecipesList() {
 
   filteredRecipes = recipes.filter(recipe => {
     // Search term filter
-    const matchesSearch = recipe.recipeName.toLowerCase().includes(searchTerm) ||
+    const matchesSearch = recipe.name.toLowerCase().includes(searchTerm) ||
       recipe.description.toLowerCase().includes(searchTerm);
 
     // Difficulty filter
     const matchesDifficulty = difficultyFilter === '' || recipe.difficulty === difficultyFilter;
 
     // Cuisine filter
-    const matchesCuisine = cuisineFilter === '' || recipe.cuisine === cuisineFilter;
+    const matchesCuisine = cuisineFilter === '' || recipe.category === cuisineFilter;
 
     return matchesSearch && matchesDifficulty && matchesCuisine;
   });
@@ -697,30 +699,27 @@ function filterRecipesList() {
 // Update UI based on auth state
 function updateAuthUI() {
   if (currentUser) {
-    loginLink.textContent = 'Logout';
-    loginLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      currentUser = null;
-      updateAuthUI();
-      showSection(homeSection);
-      homeLink.classList.add('active');
-    });
+    loginLink.style.display = 'none';
     registerLink.style.display = 'none';
-
-    // Show add recipe button
-    if (!document.querySelector('.add-recipe-btn')) {
-      createAddRecipeButton();
-    }
+    recipesLink.style.display = 'block';
+    logoutButton.style.display = 'block';
   } else {
-    loginLink.textContent = 'Login';
+    loginLink.style.display = 'block';
     registerLink.style.display = 'block';
-
-    // Remove add recipe button
-    const addButton = document.querySelector('.add-recipe-btn');
-    if (addButton) {
-      addButton.remove();
-    }
+    recipesLink.style.display = 'none';
+    logoutButton.style.display = 'none';
+    showSection(loginSection);
   }
+}
+
+// Handle logout
+if (logoutButton) {
+  logoutButton.addEventListener('click', () => {
+    localStorage.removeItem('token');
+    currentUser = null;
+    updateAuthUI();
+    showSection(loginSection);
+  });
 }
 
 // Initialize the application
@@ -737,4 +736,4 @@ function init() {
 }
 
 // Start the application
-init(); 
+init();
