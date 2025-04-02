@@ -3,31 +3,43 @@
  * @date: 2025-03-29
  */
 
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const recipeSchema = new mongoose.Schema({
-  recipeName: {
+  name: {
     type: String,
-    required: true
+    required: true,
   },
-  ingredients: {
-    type: [String],
-    required: true
+  description: {
+    type: String,
+    required: true,
+  },
+  ingredients: [{
+    type: String,
+    required: true,
+  }],
+  instructions: {
+    type: String,
+    required: true,
   },
   cookingTime: {
-    type: Number, // in minutes
-    required: true
+    type: Number,
+    required: true,
+  },
+  servings: {
+    type: Number,
+    required: true,
   },
   difficulty: {
     type: String,
     enum: ['Easy', 'Medium', 'Hard'],
-    required: true
+    required: true,
+  },
+  category: {
+    type: String,
+    required: true,
   },
   cuisine: {
-    type: String,
-    required: true
-  },
-  description: {
     type: String,
     required: true
   },
@@ -41,4 +53,6 @@ const recipeSchema = new mongoose.Schema({
   timestamps: true
 });
 
-module.exports = mongoose.model('Recipe', recipeSchema); 
+const Recipe = mongoose.model('Recipe', recipeSchema);
+
+export default Recipe;
