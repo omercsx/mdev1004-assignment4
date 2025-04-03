@@ -737,3 +737,141 @@ function init() {
 
 // Start the application
 init();
+
+document.addEventListener('DOMContentLoaded', () => {
+  // DOM Elements
+  const loginForm = document.getElementById('login-form');
+  const registerForm = document.getElementById('register-form');
+  const loginFormElement = document.getElementById('login-form-element');
+  const registerFormElement = document.getElementById('register-form-element');
+  const loginLink = document.getElementById('login-link');
+  const registerLink = document.getElementById('register-link');
+  const toLoginLink = document.getElementById('to-login-link');
+  const toRegisterLink = document.getElementById('to-register-link');
+  const cancelRegister = document.getElementById('cancel-register');
+  const logoutButton = document.getElementById('logout-button');
+
+  // Navigation Functions
+  const showLogin = () => {
+    loginForm.style.display = 'flex';
+    registerForm.style.display = 'none';
+  };
+
+  const showRegister = () => {
+    registerForm.style.display = 'flex';
+    loginForm.style.display = 'none';
+  };
+
+  // Event Listeners for Navigation
+  loginLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    showLogin();
+  });
+
+  registerLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    showRegister();
+  });
+
+  toLoginLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    showLogin();
+  });
+
+  toRegisterLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    showRegister();
+  });
+
+  cancelRegister.addEventListener('click', (e) => {
+    e.preventDefault();
+    showLogin();
+  });
+
+  // Show/Hide Alert
+  const showAlert = (message, type = 'error') => {
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type}`;
+    alertDiv.textContent = message;
+    
+    const form = type === 'error' ? loginForm : registerForm;
+    const formContainer = form.querySelector('.form-container');
+    formContainer.insertBefore(alertDiv, formContainer.firstChild);
+
+    setTimeout(() => alertDiv.remove(), 3000);
+  };
+
+  // Handle Login
+  loginFormElement.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem('token', data.token);
+        window.location.href = '/';
+      } else {
+        showAlert(data.message || 'Login failed');
+      }
+    } catch (error) {
+      showAlert('An error occurred. Please try again.');
+    }
+  });
+
+  // Handle Registration
+  registerFormElement.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const name = document.getElementById('register-name').value;
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
+
+    try {
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        showAlert('Registration successful! Please login.', 'success');
+        showLogin();
+      } else {
+        showAlert(data.message || 'Registration failed');
+      }
+    } catch (error) {
+      showAlert('An error occurred. Please try again.');
+    }
+  });
+
+  // Handle Logout
+  logoutButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    localStorage.removeItem('token');
+    window.location.href = '/';
+  });
+
+  // Check Authentication Status
+  const token = localStorage.getItem('token');
+  if (token) {
+    document.getElementById('login-link').style.display = 'none';
+    document.getElementById('register-link').style.display = 'none';
+    document.getElementById('logout-button').style.display = 'block';
+  }
+});
