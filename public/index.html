@@ -19,7 +19,9 @@
 						<li><a href="#" id="recipes-link">Recipes</a></li>
 						<li><a href="#" id="login-link">Login</a></li>
 						<li><a href="#" id="register-link">Register</a></li>
-						<li><a href="#" id="logout-button" style="display: none;">Logout</a></li>
+						<li>
+							<a href="#" id="logout-button" style="display: none">Logout</a>
+						</li>
 					</ul>
 				</nav>
 				<div class="menu-toggle">
@@ -61,7 +63,9 @@
 								id="search-recipes"
 								placeholder="Search recipes..."
 							/>
-							<button class="btn primary" onclick="addNewRecipe()">Add New Recipe</button>
+							<button class="btn primary" onclick="addNewRecipe()">
+								Add New Recipe
+							</button>
 						</div>
 					</div>
 					<div class="recipe-grid" id="all-recipes-container">
@@ -70,52 +74,69 @@
 				</div>
 			</section>
 
-			<!-- Login Form -->
-			<div id="login-form" class="auth-form" style="display: none;">
-				<div class="form-container">
-					<h2>Login</h2>
-					<form id="login-form-element">
-						<div class="form-group">
-							<label for="login-email">Email:</label>
-							<input type="email" id="login-email" required>
-						</div>
-						<div class="form-group">
-							<label for="login-password">Password:</label>
-							<input type="password" id="login-password" required>
-						</div>
-						<div class="form-actions">
-							<button type="submit" class="btn-primary">Login</button>
-							<p>Don't have an account? <a href="#" id="to-register-link">Register here</a></p>
-						</div>
-					</form>
+			<!-- Login Section -->
+			<section id="login-section" class="section">
+				<div class="auth-form">
+					<div class="form-container">
+						<h2>Login</h2>
+						<form id="login-form">
+							<div class="form-group">
+								<label for="login-email">Email:</label>
+								<input type="email" id="login-email" required />
+							</div>
+							<div class="form-group">
+								<label for="login-password">Password:</label>
+								<input type="password" id="login-password" required />
+							</div>
+							<div class="form-actions">
+								<button type="submit" class="btn-primary">Login</button>
+								<p>
+									Don't have an account?
+									<a href="#" id="go-to-register">Register here</a>
+								</p>
+							</div>
+						</form>
+					</div>
 				</div>
-			</div>
+			</section>
 
-			<!-- Registration Form -->
-			<div id="register-form" class="auth-form" style="display: none;">
-				<div class="form-container">
-					<h2>Register</h2>
-					<form id="register-form-element">
-						<div class="form-group">
-							<label for="register-name">Name:</label>
-							<input type="text" id="register-name" required>
-						</div>
-						<div class="form-group">
-							<label for="register-email">Email:</label>
-							<input type="email" id="register-email" required>
-						</div>
-						<div class="form-group">
-							<label for="register-password">Password:</label>
-							<input type="password" id="register-password" required>
-						</div>
-						<div class="form-actions">
-							<button type="submit" class="btn-primary">Register</button>
-							<button type="button" class="btn-secondary" id="cancel-register">Cancel</button>
-							<p>Already have an account? <a href="#" id="to-login-link">Login here</a></p>
-						</div>
-					</form>
+			<!-- Register Section -->
+			<section id="register-section" class="section">
+				<div class="auth-form">
+					<div class="form-container">
+						<h2>Register</h2>
+						<form id="register-form">
+							<div class="form-group">
+								<label for="register-name">Name:</label>
+								<input type="text" id="register-name" required />
+							</div>
+							<div class="form-group">
+								<label for="register-email">Email:</label>
+								<input type="email" id="register-email" required />
+							</div>
+							<div class="form-group">
+								<label for="register-password">Password:</label>
+								<input type="password" id="register-password" required />
+							</div>
+							<div class="form-group">
+								<label for="register-confirm-password">Confirm Password:</label>
+								<input
+									type="password"
+									id="register-confirm-password"
+									required
+								/>
+							</div>
+							<div class="form-actions">
+								<button type="submit" class="btn-primary">Register</button>
+								<p>
+									Already have an account?
+									<a href="#" id="go-to-login">Login here</a>
+								</p>
+							</div>
+						</form>
+					</div>
 				</div>
-			</div>
+			</section>
 
 			<!-- Recipe Form Modal -->
 			<div id="recipe-form-modal" class="modal">
@@ -165,7 +186,9 @@
 							</div>
 						</div>
 						<div class="form-actions">
-							<button type="button" class="btn secondary close-modal">Cancel</button>
+							<button type="button" class="btn secondary close-modal">
+								Cancel
+							</button>
 							<button type="submit" class="btn primary">Save Recipe</button>
 						</div>
 					</form>
