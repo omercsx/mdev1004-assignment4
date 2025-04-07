@@ -1,89 +1,383 @@
 {
 	"recipes": [
 		{
-			"recipeName": "Spaghetti Carbonara",
+			"name": "Classic Margherita Pizza",
+			"description": "A traditional Italian pizza with fresh basil, mozzarella, and tomatoes",
 			"ingredients": [
-				"spaghetti",
-				"eggs",
-				"pecorino romano cheese",
-				"guanciale",
-				"black pepper",
-				"salt"
+				"Pizza dough",
+				"San Marzano tomatoes",
+				"Fresh mozzarella",
+				"Fresh basil leaves",
+				"Extra virgin olive oil",
+				"Salt"
 			],
-			"cookingTime": 25,
+			"instructions": "1. Preheat oven to 500°F\n2. Roll out dough\n3. Add tomatoes, cheese\n4. Bake for 12-15 minutes\n5. Add fresh basil",
+			"cookingTime": 20,
+			"servings": 4,
 			"difficulty": "Medium",
-			"cuisine": "Italian",
-			"description": "A classic Roman pasta dish made with eggs, hard cheese, cured pork, and black pepper. The sauce is created by combining raw eggs with cheese that are cooked by the heat of the freshly cooked pasta.",
-			"averageRating": 4.8
+			"category": "Italian Studio",
+			"cuisine": "Italian"
 		},
 		{
-			"recipeName": "Thai Green Curry",
+			"name": "Chicken Tikka Masala",
+			"description": "Grilled chicken in a rich, creamy tomato-based curry sauce",
 			"ingredients": [
-				"coconut milk",
-				"green curry paste",
-				"chicken breast",
-				"bamboo shoots",
-				"thai basil",
-				"fish sauce",
-				"palm sugar",
-				"eggplant",
-				"kaffir lime leaves"
+				"Chicken breast",
+				"Yogurt",
+				"Tomato sauce",
+				"Heavy cream",
+				"Garam masala",
+				"Garlic",
+				"Ginger",
+				"Onions"
 			],
-			"cookingTime": 40,
+			"instructions": "1. Marinate chicken\n2. Grill chicken\n3. Prepare sauce\n4. Combine and simmer",
+			"cookingTime": 45,
+			"servings": 6,
 			"difficulty": "Medium",
-			"cuisine": "Thai",
-			"description": "A fragrant and creamy curry made with coconut milk and green curry paste, featuring tender chicken and fresh vegetables.",
-			"averageRating": 4.6
+			"category": "Indian Studio",
+			"cuisine": "Indian"
 		},
 		{
-			"recipeName": "Simple Avocado Toast",
+			"name": "Sushi Roll Platter",
+			"description": "Assorted sushi rolls including California, Spicy Tuna, and Vegetarian",
 			"ingredients": [
-				"sourdough bread",
-				"ripe avocado",
-				"salt",
-				"pepper",
-				"red pepper flakes",
-				"olive oil",
-				"lemon juice"
+				"Sushi rice",
+				"Nori sheets",
+				"Fresh fish",
+				"Cucumber",
+				"Avocado",
+				"Carrots",
+				"Soy sauce",
+				"Wasabi"
 			],
-			"cookingTime": 10,
-			"difficulty": "Easy",
-			"cuisine": "Modern American",
-			"description": "A quick and nutritious breakfast featuring mashed avocado on toasted sourdough bread with simple seasonings.",
-			"averageRating": 4.3
-		},
-		{
-			"recipeName": "Beef Wellington",
-			"ingredients": [
-				"beef tenderloin",
-				"mushrooms",
-				"prosciutto",
-				"puff pastry",
-				"egg wash",
-				"dijon mustard",
-				"thyme",
-				"shallots"
-			],
-			"cookingTime": 120,
+			"instructions": "1. Prepare sushi rice\n2. Cut vegetables\n3. Roll sushi\n4. Slice and serve",
+			"cookingTime": 60,
+			"servings": 4,
 			"difficulty": "Hard",
-			"cuisine": "British",
-			"description": "A luxurious dish of beef tenderloin wrapped in mushroom duxelles, prosciutto, and puff pastry, then baked to perfection.",
-			"averageRating": 4.9
+			"category": "Japanese Studio",
+			"cuisine": "Japanese"
 		},
 		{
-			"recipeName": "Miso Soup",
+			"name": "Classic French Onion Soup",
+			"description": "Rich beef broth with caramelized onions and melted cheese",
 			"ingredients": [
-				"dashi stock",
-				"miso paste",
-				"tofu",
-				"wakame seaweed",
-				"green onions"
+				"Onions",
+				"Beef broth",
+				"Gruyere cheese",
+				"Baguette",
+				"Butter",
+				"White wine",
+				"Thyme"
 			],
-			"cookingTime": 15,
+			"instructions": "1. Caramelize onions\n2. Add wine and broth\n3. Simmer\n4. Top with bread and cheese\n5. Broil",
+			"cookingTime": 90,
+			"servings": 6,
+			"difficulty": "Medium",
+			"category": "French Studio",
+			"cuisine": "French"
+		},
+		{
+			"name": "Pad Thai",
+			"description": "Classic Thai stir-fried rice noodles with shrimp",
+			"ingredients": [
+				"Rice noodles",
+				"Shrimp",
+				"Tofu",
+				"Bean sprouts",
+				"Peanuts",
+				"Eggs",
+				"Tamarind paste",
+				"Fish sauce"
+			],
+			"instructions": "1. Soak noodles\n2. Stir-fry ingredients\n3. Add sauce\n4. Combine and serve",
+			"cookingTime": 30,
+			"servings": 4,
+			"difficulty": "Medium",
+			"category": "Thai Studio",
+			"cuisine": "Thai"
+		},
+		{
+			"name": "Homemade Pasta Carbonara",
+			"description": "Fresh pasta with crispy pancetta in a creamy egg sauce",
+			"ingredients": [
+				"Fresh pasta",
+				"Pancetta",
+				"Eggs",
+				"Pecorino Romano",
+				"Black pepper",
+				"Garlic"
+			],
+			"instructions": "1. Cook pasta\n2. Crisp pancetta\n3. Mix eggs and cheese\n4. Combine all ingredients",
+			"cookingTime": 25,
+			"servings": 4,
+			"difficulty": "Medium",
+			"category": "Italian Studio",
+			"cuisine": "Italian"
+		},
+		{
+			"name": "Beef Bulgogi",
+			"description": "Korean marinated and grilled beef with rice",
+			"ingredients": [
+				"Beef sirloin",
+				"Soy sauce",
+				"Asian pear",
+				"Garlic",
+				"Sesame oil",
+				"Green onions",
+				"Rice"
+			],
+			"instructions": "1. Marinate beef\n2. Prepare rice\n3. Grill beef\n4. Serve with sides",
+			"cookingTime": 40,
+			"servings": 4,
 			"difficulty": "Easy",
-			"cuisine": "Japanese",
-			"description": "A traditional Japanese soup made with fermented soybean paste, dashi stock, and various additions like tofu and seaweed.",
-			"averageRating": 4.4
+			"category": "Korean Studio",
+			"cuisine": "Korean"
+		},
+		{
+			"name": "Vegetable Paella",
+			"description": "Spanish rice dish with seasonal vegetables and saffron",
+			"ingredients": [
+				"Bomba rice",
+				"Saffron",
+				"Bell peppers",
+				"Artichokes",
+				"Peas",
+				"Vegetable broth",
+				"Tomatoes"
+			],
+			"instructions": "1. Toast rice\n2. Add vegetables\n3. Add broth and saffron\n4. Cook until crispy bottom forms",
+			"cookingTime": 50,
+			"servings": 6,
+			"difficulty": "Medium",
+			"category": "Spanish Studio",
+			"cuisine": "Spanish"
+		},
+		{
+			"name": "Chocolate Soufflé",
+			"description": "Light and airy chocolate dessert",
+			"ingredients": [
+				"Dark chocolate",
+				"Eggs",
+				"Butter",
+				"Sugar",
+				"Vanilla extract",
+				"Flour"
+			],
+			"instructions": "1. Melt chocolate\n2. Prepare ramekins\n3. Mix ingredients\n4. Bake until risen",
+			"cookingTime": 25,
+			"servings": 4,
+			"difficulty": "Hard",
+			"category": "French Studio",
+			"cuisine": "French"
+		},
+		{
+			"name": "Greek Moussaka",
+			"description": "Layered eggplant and meat casserole with béchamel sauce",
+			"ingredients": [
+				"Eggplant",
+				"Ground lamb",
+				"Tomatoes",
+				"Onions",
+				"Béchamel sauce",
+				"Cinnamon",
+				"Nutmeg"
+			],
+			"instructions": "1. Prepare eggplant\n2. Make meat sauce\n3. Make béchamel\n4. Layer and bake",
+			"cookingTime": 90,
+			"servings": 8,
+			"difficulty": "Hard",
+			"category": "Greek Studio",
+			"cuisine": "Greek"
+		},
+		{
+			"name": "Vietnamese Pho",
+			"description": "Traditional beef noodle soup with herbs",
+			"ingredients": [
+				"Rice noodles",
+				"Beef bones",
+				"Bean sprouts",
+				"Thai basil",
+				"Star anise",
+				"Cinnamon",
+				"Fish sauce"
+			],
+			"instructions": "1. Make broth\n2. Cook noodles\n3. Prepare toppings\n4. Assemble and serve",
+			"cookingTime": 180,
+			"servings": 6,
+			"difficulty": "Medium",
+			"category": "Vietnamese Studio",
+			"cuisine": "Vietnamese"
+		},
+		{
+			"name": "Fish and Chips",
+			"description": "Classic British beer-battered fish with crispy fries",
+			"ingredients": [
+				"Cod fillets",
+				"Potatoes",
+				"Beer",
+				"Flour",
+				"Vegetable oil",
+				"Malt vinegar",
+				"Tartar sauce"
+			],
+			"instructions": "1. Cut potatoes\n2. Make batter\n3. Fry fish\n4. Fry chips",
+			"cookingTime": 45,
+			"servings": 4,
+			"difficulty": "Medium",
+			"category": "British Studio",
+			"cuisine": "British"
+		},
+		{
+			"name": "Vegetarian Buddha Bowl",
+			"description": "Healthy bowl with grains, vegetables, and tahini dressing",
+			"ingredients": [
+				"Quinoa",
+				"Sweet potato",
+				"Chickpeas",
+				"Kale",
+				"Avocado",
+				"Tahini",
+				"Lemon juice"
+			],
+			"instructions": "1. Cook quinoa\n2. Roast vegetables\n3. Make dressing\n4. Assemble bowl",
+			"cookingTime": 40,
+			"servings": 2,
+			"difficulty": "Easy",
+			"category": "Health Studio",
+			"cuisine": "International"
+		},
+		{
+			"name": "Moroccan Tagine",
+			"description": "Slow-cooked stew with aromatic spices",
+			"ingredients": [
+				"Lamb",
+				"Apricots",
+				"Chickpeas",
+				"Couscous",
+				"Moroccan spices",
+				"Onions",
+				"Garlic"
+			],
+			"instructions": "1. Brown meat\n2. Add vegetables\n3. Slow cook\n4. Serve with couscous",
+			"cookingTime": 120,
+			"servings": 6,
+			"difficulty": "Medium",
+			"category": "Moroccan Studio",
+			"cuisine": "Moroccan"
+		},
+		{
+			"name": "Eggs Benedict",
+			"description": "Poached eggs with hollandaise sauce on English muffins",
+			"ingredients": [
+				"Eggs",
+				"English muffins",
+				"Canadian bacon",
+				"Butter",
+				"Lemon juice",
+				"Cayenne pepper"
+			],
+			"instructions": "1. Make hollandaise\n2. Toast muffins\n3. Poach eggs\n4. Assemble",
+			"cookingTime": 30,
+			"servings": 2,
+			"difficulty": "Hard",
+			"category": "Breakfast Studio",
+			"cuisine": "American"
+		},
+		{
+			"name": "Homemade Ramen",
+			"description": "Rich pork broth with noodles and toppings",
+			"ingredients": [
+				"Ramen noodles",
+				"Pork belly",
+				"Soft-boiled eggs",
+				"Green onions",
+				"Nori",
+				"Bamboo shoots",
+				"Miso paste"
+			],
+			"instructions": "1. Prepare broth\n2. Cook pork\n3. Cook noodles\n4. Assemble bowl",
+			"cookingTime": 240,
+			"servings": 4,
+			"difficulty": "Hard",
+			"category": "Japanese Studio",
+			"cuisine": "Japanese"
+		},
+		{
+			"name": "Caesar Salad",
+			"description": "Classic salad with homemade dressing and croutons",
+			"ingredients": [
+				"Romaine lettuce",
+				"Parmesan cheese",
+				"Bread",
+				"Garlic",
+				"Anchovy paste",
+				"Egg yolk",
+				"Olive oil"
+			],
+			"instructions": "1. Make croutons\n2. Prepare dressing\n3. Chop lettuce\n4. Toss and serve",
+			"cookingTime": 20,
+			"servings": 4,
+			"difficulty": "Easy",
+			"category": "Salad Studio",
+			"cuisine": "American"
+		},
+		{
+			"name": "Apple Pie",
+			"description": "Traditional American dessert with flaky crust",
+			"ingredients": [
+				"Apples",
+				"Flour",
+				"Butter",
+				"Sugar",
+				"Cinnamon",
+				"Nutmeg",
+				"Lemon juice"
+			],
+			"instructions": "1. Make pie crust\n2. Prepare filling\n3. Assemble pie\n4. Bake until golden",
+			"cookingTime": 75,
+			"servings": 8,
+			"difficulty": "Medium",
+			"category": "Dessert Studio",
+			"cuisine": "American"
+		},
+		{
+			"name": "Beef Stroganoff",
+			"description": "Creamy beef and mushroom sauce with egg noodles",
+			"ingredients": [
+				"Beef tenderloin",
+				"Mushrooms",
+				"Egg noodles",
+				"Sour cream",
+				"Beef broth",
+				"Onions",
+				"Garlic"
+			],
+			"instructions": "1. Cook noodles\n2. Sear beef\n3. Make sauce\n4. Combine and serve",
+			"cookingTime": 35,
+			"servings": 4,
+			"difficulty": "Medium",
+			"category": "Russian Studio",
+			"cuisine": "Russian"
+		},
+		{
+			"name": "Falafel Wrap",
+			"description": "Crispy chickpea patties with tahini sauce in pita",
+			"ingredients": [
+				"Chickpeas",
+				"Fresh herbs",
+				"Pita bread",
+				"Tahini",
+				"Cucumber",
+				"Tomatoes",
+				"Garlic"
+			],
+			"instructions": "1. Make falafel mix\n2. Form and fry\n3. Make sauce\n4. Assemble wrap",
+			"cookingTime": 40,
+			"servings": 4,
+			"difficulty": "Medium",
+			"category": "Middle Eastern Studio",
+			"cuisine": "Middle Eastern"
 		}
 	]
 }

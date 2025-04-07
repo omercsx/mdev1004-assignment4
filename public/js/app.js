@@ -351,19 +351,25 @@ function createRecipeCard(recipe) {
       <h3>${recipe.name}</h3>
       <div class="recipe-info">
         <p><strong>Studio:</strong> ${recipe.category}</p>
-        <p><strong>Rating:</strong> ${recipe.difficulty}</p>
+        <p><strong>Cuisine:</strong> ${recipe.cuisine}</p>
+        <p><strong>Difficulty:</strong> ${recipe.difficulty}</p>
+        <p><strong>Time:</strong> ${recipe.cookingTime} mins</p>
       </div>
+      <p class="recipe-description">${recipe.description}</p>
       <div class="recipe-actions">
-        <button class="btn secondary edit-recipe" data-id="${recipe._id}">Edit</button>
-        <button class="btn primary delete-recipe" data-id="${recipe._id}">Delete</button>
+        <button class="btn secondary view-recipe" data-id="${recipe._id}">View</button>
+        <button class="btn primary edit-recipe" data-id="${recipe._id}">Edit</button>
+        <button class="btn danger delete-recipe" data-id="${recipe._id}">Delete</button>
       </div>
     </div>
   `;
 
   // Add event listeners
+  const viewButton = card.querySelector('.view-recipe');
   const editButton = card.querySelector('.edit-recipe');
   const deleteButton = card.querySelector('.delete-recipe');
 
+  viewButton.addEventListener('click', () => viewRecipe(recipe._id));
   editButton.addEventListener('click', () => editRecipe(recipe._id));
   deleteButton.addEventListener('click', async () => {
     if (confirm('Are you sure you want to delete this recipe?')) {
@@ -491,34 +497,48 @@ async function viewRecipe(id) {
       `<li>${ingredient}</li>`
     ).join('');
 
+    const instructionsList = recipe.instructions.split('\n').map(instruction =>
+      `<li>${instruction}</li>`
+    ).join('');
+
     recipeDetailContent.innerHTML = `
-            <div class="recipe-detail">
-                <div class="recipe-detail-header">
-                    <h2 class="recipe-detail-title">${recipe.name}</h2>
-                    <div class="recipe-detail-meta">
-                        <span><strong>Studio:</strong> ${recipe.category}</span>
-                        <span><strong>Rating:</strong> ${recipe.difficulty}</span>
-                    </div>
-                </div>
-                
-                <div class="recipe-detail-section">
-                    <h3>Description</h3>
-                    <p>${recipe.description}</p>
-                </div>
-                
-                <div class="recipe-detail-section">
-                    <h3>Ingredients</h3>
-                    <ul class="ingredients-list">
-                        ${ingredientsList}
-                    </ul>
-                </div>
-                
-                <div class="recipe-actions">
-                    <button class="btn primary edit-recipe" data-id="${recipe._id}">Edit Recipe</button>
-                    <button class="btn secondary delete-recipe" data-id="${recipe._id}">Delete Recipe</button>
-                </div>
-            </div>
-        `;
+      <div class="recipe-detail">
+        <div class="recipe-detail-header">
+          <h2 class="recipe-detail-title">${recipe.name}</h2>
+          <div class="recipe-detail-meta">
+            <span><strong>Studio:</strong> ${recipe.category}</span>
+            <span><strong>Cuisine:</strong> ${recipe.cuisine}</span>
+            <span><strong>Difficulty:</strong> ${recipe.difficulty}</span>
+            <span><strong>Time:</strong> ${recipe.cookingTime} mins</span>
+            <span><strong>Servings:</strong> ${recipe.servings}</span>
+          </div>
+        </div>
+        
+        <div class="recipe-detail-section">
+          <h3>Description</h3>
+          <p>${recipe.description}</p>
+        </div>
+        
+        <div class="recipe-detail-section">
+          <h3>Ingredients</h3>
+          <ul class="ingredients-list">
+            ${ingredientsList}
+          </ul>
+        </div>
+
+        <div class="recipe-detail-section">
+          <h3>Instructions</h3>
+          <ol class="instructions-list">
+            ${instructionsList}
+          </ol>
+        </div>
+        
+        <div class="recipe-actions">
+          <button class="btn primary edit-recipe" data-id="${recipe._id}">Edit Recipe</button>
+          <button class="btn danger delete-recipe" data-id="${recipe._id}">Delete Recipe</button>
+        </div>
+      </div>
+    `;
 
     // Add event listeners
     recipeDetailContent.querySelector('.edit-recipe').addEventListener('click', () => {
@@ -526,15 +546,13 @@ async function viewRecipe(id) {
       editRecipe(recipe._id);
     });
 
-    recipeDetailContent.querySelector('.delete-recipe').addEventListener('click', () => {
+    recipeDetailContent.querySelector('.delete-recipe').addEventListener('click', async () => {
       if (confirm('Are you sure you want to delete this recipe?')) {
-        deleteRecipe(recipe._id).then(success => {
-          if (success) {
-            closeModal(recipeModal);
-            loadAllRecipes();
-            loadFeaturedRecipes();
-          }
-        });
+        const success = await deleteRecipe(recipe._id);
+        if (success) {
+          closeModal(recipeModal);
+          loadAllRecipes();
+        }
       }
     });
 
@@ -559,6 +577,7 @@ async function editRecipe(id) {
   document.querySelector('#recipe-servings').value = recipe.servings;
   document.querySelector('#recipe-difficulty').value = recipe.difficulty;
   document.querySelector('#recipe-category').value = recipe.category;
+  document.querySelector('#recipe-cuisine').value = recipe.cuisine;
 
   openModal(recipeFormModal);
 }
@@ -656,24 +675,26 @@ recipeForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const recipeId = editingRecipeId;
-  const recipeName = document.getElementById('recipe-name').value;
+  const name = document.getElementById('recipe-name').value;
+  const description = document.getElementById('recipe-description').value;
   const ingredients = document.getElementById('recipe-ingredients').value.split('\n').filter(i => i.trim() !== '');
+  const instructions = document.getElementById('recipe-instructions').value;
   const cookingTime = parseInt(document.getElementById('recipe-cooking-time').value);
   const servings = parseInt(document.getElementById('recipe-servings').value);
   const difficulty = document.getElementById('recipe-difficulty').value;
   const category = document.getElementById('recipe-category').value;
-  const description = document.getElementById('recipe-description').value;
-  const instructions = document.getElementById('recipe-instructions').value;
+  const cuisine = document.getElementById('recipe-cuisine').value;
 
   const recipeData = {
-    name: recipeName,
+    name,
+    description,
     ingredients,
+    instructions,
     cookingTime,
     servings,
     difficulty,
     category,
-    description,
-    instructions
+    cuisine
   };
 
   let result;
@@ -690,6 +711,8 @@ recipeForm.addEventListener('submit', async (e) => {
     loadAllRecipes();
     loadFeaturedRecipes();
     recipeForm.reset();
+    isEditing = false;
+    editingRecipeId = null;
   } else {
     alert('Failed to save recipe. Please try again.');
   }

@@ -73,16 +73,19 @@ const recipeController = {
   createRecipe: async (req, res) => {
     try {
       const {
-        recipeName,
+        name,
+        description,
         ingredients,
+        instructions,
         cookingTime,
+        servings,
         difficulty,
-        cuisine,
-        description
+        category,
+        cuisine
       } = req.body;
 
       // Validation
-      if (!recipeName || !ingredients || !cookingTime || !difficulty || !cuisine || !description) {
+      if (!name || !description || !ingredients || !instructions || !cookingTime || !servings || !difficulty || !category || !cuisine) {
         return res.status(400).json({
           success: false,
           message: "Please provide all required fields"
@@ -99,12 +102,15 @@ const recipeController = {
       }
 
       const recipe = await Recipe.create({
-        recipeName,
-        ingredients,
-        cookingTime,
-        difficulty,
-        cuisine,
+        name,
         description,
+        ingredients,
+        instructions,
+        cookingTime,
+        servings,
+        difficulty,
+        category,
+        cuisine,
         averageRating: 0 // Default value
       });
 
@@ -126,12 +132,15 @@ const recipeController = {
   updateRecipe: async (req, res) => {
     try {
       const {
-        recipeName,
+        name,
+        description,
         ingredients,
+        instructions,
         cookingTime,
+        servings,
         difficulty,
-        cuisine,
-        description
+        category,
+        cuisine
       } = req.body;
 
       // Validate difficulty if provided
@@ -151,12 +160,15 @@ const recipeController = {
       }
 
       // Update only provided fields
-      recipe.recipeName = recipeName || recipe.recipeName;
-      recipe.ingredients = ingredients || recipe.ingredients;
-      recipe.cookingTime = cookingTime || recipe.cookingTime;
-      recipe.difficulty = difficulty || recipe.difficulty;
-      recipe.cuisine = cuisine || recipe.cuisine;
-      recipe.description = description || recipe.description;
+      if (name) recipe.name = name;
+      if (description) recipe.description = description;
+      if (ingredients) recipe.ingredients = ingredients;
+      if (instructions) recipe.instructions = instructions;
+      if (cookingTime) recipe.cookingTime = cookingTime;
+      if (servings) recipe.servings = servings;
+      if (difficulty) recipe.difficulty = difficulty;
+      if (category) recipe.category = category;
+      if (cuisine) recipe.cuisine = cuisine;
 
       const updatedRecipe = await recipe.save();
 

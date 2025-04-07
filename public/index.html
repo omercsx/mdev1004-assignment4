@@ -157,32 +157,43 @@
 							<textarea id="recipe-ingredients" required></textarea>
 						</div>
 						<div class="form-group">
-							<label for="recipe-instructions">Instructions</label>
+							<label for="recipe-instructions"
+								>Instructions (one step per line)</label
+							>
 							<textarea id="recipe-instructions" required></textarea>
 						</div>
 						<div class="form-row">
 							<div class="form-group">
 								<label for="recipe-cooking-time">Cooking Time (minutes)</label>
-								<input type="number" id="recipe-cooking-time" required />
+								<input
+									type="number"
+									id="recipe-cooking-time"
+									min="1"
+									required
+								/>
 							</div>
 							<div class="form-group">
 								<label for="recipe-servings">Servings</label>
-								<input type="number" id="recipe-servings" required />
+								<input type="number" id="recipe-servings" min="1" required />
 							</div>
 						</div>
 						<div class="form-row">
 							<div class="form-group">
-								<label for="recipe-difficulty">Rating</label>
+								<label for="recipe-difficulty">Difficulty</label>
 								<select id="recipe-difficulty" required>
-									<option value="">Select Rating</option>
-									<option value="Easy">★</option>
-									<option value="Medium">★★</option>
-									<option value="Hard">★★★</option>
+									<option value="">Select Difficulty</option>
+									<option value="Easy">Easy</option>
+									<option value="Medium">Medium</option>
+									<option value="Hard">Hard</option>
 								</select>
 							</div>
 							<div class="form-group">
 								<label for="recipe-category">Studio</label>
 								<input type="text" id="recipe-category" required />
+							</div>
+							<div class="form-group">
+								<label for="recipe-cuisine">Cuisine</label>
+								<input type="text" id="recipe-cuisine" required />
 							</div>
 						</div>
 						<div class="form-actions">
