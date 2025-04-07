@@ -6,6 +6,7 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import User from '../model/User.js';
+import { protect } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -73,6 +74,20 @@ router.post('/login', async (req, res) => {
       name: user.name,
       email: user.email,
       token
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
+
+// Verify Token and Get User Data
+router.get('/verify', protect, async (req, res) => {
+  try {
+    // User data is already attached by protect middleware
+    res.json({
+      _id: req.user._id,
+      name: req.user.name,
+      email: req.user.email
     });
   } catch (error) {
     res.status(500).json({ message: 'Server Error' });
